@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "updatedAt": "2026-11-08T00:00:00Z",
+  "compatibility": [
+    {
+      "engine": "codex",
+      "escapeRange": ">=0.1.0",
+      "recommendedVersion": "0.164.0",
+      "recommendedRange": "=0.164.0",
+      "ranges": [{ "range": "=0.164.0", "status": "supported" }]
+    },
+    {
+      "engine": "claude",
+      "escapeRange": ">=0.1.0",
+      "recommendedVersion": "2.1.319",
+      "recommendedRange": "=2.1.319",
+      "ranges": [{ "range": "=2.1.319", "status": "supported" }]
+    },
+    {
+      "engine": "opencode",
+      "escapeRange": ">=0.1.0",
+      "recommendedVersion": "2.2.6",
+      "recommendedRange": "=2.2.6",
+      "ranges": [{ "range": "=2.2.6", "status": "supported" }]
+    }
+  ]
+}
