@@ -1,13 +1,36 @@
 # escape-compat
 
-Manifeste de compatibilité des moteurs d’escape (Codex, Claude Code, OpenCode), relu en ligne par escape
-au plus une fois par heure (`manifest.json`, servi par `raw.githubusercontent.com`).
+Compatibility manifest for escape's engines: **Codex**, **Claude Code**, and **OpenCode**.
 
-- Format : `{"version", "updatedAt", "compatibility": [{"engine", "escapeRange", "recommendedVersion",
-  "recommendedRange", "ranges": [{"range", "status"}]}]}`, statuts `supported`, `graceful`, `unsupported`,
-  `broken` ou `unknown`, plages à la façon de T3 Code (`>=`, `<`, `=`, `^`, espaces, `||`).
-- Chaque modification augmente `version` : escape ignore un manifeste de version inférieure à celui qu’il connaît.
-- Ce fichier **restreint** sans jamais élargir : une version ne tourne que si le manifeste embarqué dans la
-  build d’escape la dit `supported`. Ici, on marque une version `broken` ou `unsupported`, on change la version
-  recommandée et les messages, sans publier une nouvelle version d’escape.
-- Aucune donnée personnelle ni secret.
+escape checks the remote [manifest.json](manifest.json), served by `raw.githubusercontent.com`,
+at most once per hour.
+
+## Manifest format
+
+| Field | Description |
+| --- | --- |
+| `version` | Manifest version, incremented with every change. |
+| `updatedAt` | Timestamp of the latest update. |
+| `compatibility` | List of engine compatibility entries. |
+| `compatibility[].engine` | Engine identifier: `codex`, `claude`, or `opencode`. |
+| `compatibility[].escapeRange` | escape versions to which the entry applies. |
+| `compatibility[].recommendedVersion` | Recommended engine version. |
+| `compatibility[].recommendedRange` | Recommended engine version range. |
+| `compatibility[].ranges` | List of version ranges and their compatibility statuses. |
+| `compatibility[].ranges[].range` | Engine version range. |
+| `compatibility[].ranges[].status` | One of `supported`, `graceful`, `unsupported`, `broken`, or `unknown`. |
+
+Version ranges use T3 Code-style syntax: `>=`, `<`, `=`, `^`, spaces, and `||`.
+
+## Update rules
+
+- **Increment `version` with every manifest change.** escape ignores manifests with a lower version
+  than the one it already knows.
+- **Remote updates can only restrict compatibility.** An engine version can run only if the manifest
+  embedded in the escape build marks it as `supported`.
+- Mark engine versions as `broken` or `unsupported`, update the recommended version, and adjust
+  messages without releasing a new version of escape.
+
+## Privacy
+
+The manifest contains no personal data or secrets.
